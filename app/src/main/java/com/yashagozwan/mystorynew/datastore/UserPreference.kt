@@ -20,9 +20,7 @@ class UserPreference private constructor(private val context: Context) {
         }
     }
 
-    fun token(): Flow<String> {
-        return context.dataStore.data.map { it[TOKEN] ?: "" }
-    }
+    fun token(): Flow<String> = context.dataStore.data.map { it[TOKEN] ?: "" }
 
     suspend fun delete() {
         context.dataStore.edit {

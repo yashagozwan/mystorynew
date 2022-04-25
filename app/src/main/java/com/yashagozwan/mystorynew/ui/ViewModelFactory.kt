@@ -5,8 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yashagozwan.mystorynew.di.Injection
 import com.yashagozwan.mystorynew.repository.StoryRepository
+import com.yashagozwan.mystorynew.ui.login.LoginViewModel
 import com.yashagozwan.mystorynew.ui.main.MainViewModel
 import com.yashagozwan.mystorynew.ui.splash.SplashViewModel
+import com.yashagozwan.mystorynew.ui.start.StartActivity
+import com.yashagozwan.mystorynew.ui.start.StartViewModel
 
 class ViewModelFactory private constructor(private val storyRepository: StoryRepository) :
     ViewModelProvider.NewInstanceFactory() {
@@ -17,7 +20,16 @@ class ViewModelFactory private constructor(private val storyRepository: StoryRep
             modelClass.isAssignableFrom(MainViewModel::class.java) -> MainViewModel(
                 storyRepository
             ) as T
+
             modelClass.isAssignableFrom(SplashViewModel::class.java) -> SplashViewModel(
+                storyRepository
+            ) as T
+
+            modelClass.isAssignableFrom(StartViewModel::class.java) -> StartViewModel(
+                storyRepository
+            ) as T
+
+            modelClass.isAssignableFrom(LoginViewModel::class.java) -> LoginViewModel(
                 storyRepository
             ) as T
 

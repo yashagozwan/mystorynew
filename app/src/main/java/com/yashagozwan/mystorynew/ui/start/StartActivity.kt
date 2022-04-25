@@ -10,6 +10,7 @@ import com.yashagozwan.mystorynew.databinding.ActivityStartBinding
 import com.yashagozwan.mystorynew.ui.ViewModelFactory
 import com.yashagozwan.mystorynew.ui.login.LoginActivity
 import com.yashagozwan.mystorynew.ui.main.MainActivity
+import com.yashagozwan.mystorynew.ui.register.RegisterActivity
 
 class StartActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityStartBinding
@@ -46,7 +47,7 @@ class StartActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.btn_login -> startActivity(Intent(this, LoginActivity::class.java))
-            R.id.btn_register -> {}
+            R.id.btn_register -> startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
 }

@@ -12,7 +12,7 @@
     <string name="error_message">Password harus 6 karakter</string>
     <string name="show_password">Lihat password</string>
     <string name="set_error_field">Kolom tidak boleh kosong</string>
-    <string name="hide_password">Sembuyikan password</string>
+    <string name="hide_password">Sembunyikan password</string>
     <string name="input_email">Masukan email</string>
     <string name="user_not_found">Email atau sandi salah</string>
     <string name="email_already_exist">Email sudah ada</string>
@@ -35,4 +35,5 @@
     <string name="camera_failed">Kamera gagal</string>
     <string name="yes">Ya</string>
     <string name="no">Tidak</string>
+    <string name="login_successfully">Berhasil masuk</string>
 </resources>

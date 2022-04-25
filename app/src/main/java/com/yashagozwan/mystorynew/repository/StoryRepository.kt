@@ -7,6 +7,7 @@ import com.yashagozwan.mystorynew.api.ApiConfig
 import com.yashagozwan.mystorynew.datastore.UserPreference
 import com.yashagozwan.mystorynew.model.Login
 import com.yashagozwan.mystorynew.model.LoginResponse
+import com.yashagozwan.mystorynew.model.Register
 
 class StoryRepository private constructor(
     private val userPreference: UserPreference,
@@ -21,6 +22,16 @@ class StoryRepository private constructor(
         emit(Result.Loading)
         try {
             val response = apiConfig.dicoding().login(login)
+            emit(Result.Success(response))
+        } catch (error: Exception) {
+            emit(Result.Error(error.message.toString()))
+        }
+    }
+
+    fun register(register: Register) = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiConfig.dicoding().register(register)
             emit(Result.Success(response))
         } catch (error: Exception) {
             emit(Result.Error(error.message.toString()))

@@ -7,8 +7,8 @@ import com.yashagozwan.mystorynew.di.Injection
 import com.yashagozwan.mystorynew.repository.StoryRepository
 import com.yashagozwan.mystorynew.ui.login.LoginViewModel
 import com.yashagozwan.mystorynew.ui.main.MainViewModel
+import com.yashagozwan.mystorynew.ui.register.RegisterViewModel
 import com.yashagozwan.mystorynew.ui.splash.SplashViewModel
-import com.yashagozwan.mystorynew.ui.start.StartActivity
 import com.yashagozwan.mystorynew.ui.start.StartViewModel
 
 class ViewModelFactory private constructor(private val storyRepository: StoryRepository) :
@@ -30,6 +30,10 @@ class ViewModelFactory private constructor(private val storyRepository: StoryRep
             ) as T
 
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> LoginViewModel(
+                storyRepository
+            ) as T
+
+            modelClass.isAssignableFrom(RegisterViewModel::class.java) -> RegisterViewModel(
                 storyRepository
             ) as T
 

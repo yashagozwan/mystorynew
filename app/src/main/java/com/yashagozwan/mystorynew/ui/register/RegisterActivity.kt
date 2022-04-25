@@ -1,4 +1,4 @@
-package com.yashagozwan.mystorynew.ui.login
+package com.yashagozwan.mystorynew.ui.register
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,49 +9,39 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.yashagozwan.mystorynew.R
-import com.yashagozwan.mystorynew.databinding.ActivityLoginBinding
-import com.yashagozwan.mystorynew.model.Login
+import com.yashagozwan.mystorynew.databinding.ActivityRegisterBinding
+import com.yashagozwan.mystorynew.model.Register
 import com.yashagozwan.mystorynew.repository.Result
 import com.yashagozwan.mystorynew.ui.ViewModelFactory
-import com.yashagozwan.mystorynew.ui.main.MainActivity
+import com.yashagozwan.mystorynew.ui.login.LoginActivity
 
-class LoginActivity : AppCompatActivity(), View.OnClickListener {
-    private lateinit var binding: ActivityLoginBinding
+class RegisterActivity : AppCompatActivity(), View.OnClickListener {
+    private lateinit var binding: ActivityRegisterBinding
     private val factory = ViewModelFactory.getInstance(this)
-    private val loginViewModel: LoginViewModel by viewModels { factory }
+    private val registerViewModel: RegisterViewModel by viewModels { factory }
     private var isPasswordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        redirect()
         setTitleAppBar()
         setButtonListener()
     }
 
-    private fun redirect() {
-        loginViewModel.getToken().observe(this) {
-            if (it.isNotEmpty()) {
-                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                finish()
-            }
-        }
-    }
-
     private fun setTitleAppBar() {
-        supportActionBar?.title = getString(R.string.login)
+        supportActionBar?.title = getString(R.string.register)
     }
 
     private fun setButtonListener() {
         binding.tvShowPassword.setOnClickListener(this)
-        binding.btnLogin.setOnClickListener(this)
+        binding.btnRegister.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
         when (view.id) {
             R.id.tv_show_password -> showPassword()
-            R.id.btn_login -> login()
+            R.id.btn_register -> register()
         }
     }
 
@@ -69,35 +59,40 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         isPasswordVisible = !isPasswordVisible
     }
 
-    private fun login() {
+    private fun register() {
+        val name = binding.editName.text.toString().trim()
         val email = binding.editEmail.text.toString().trim()
         val password = binding.editPassword.text.toString().trim()
 
+        if (name.isEmpty()) {
+            binding.editName.error = getString(R.string.set_error_field)
+            return
+        }
+
         if (email.isEmpty()) {
-            binding.editEmail.error = getString(R.string.set_error_field)
+            binding.editName.error = getString(R.string.set_error_field)
             return
         }
 
         if (password.isEmpty()) {
-            binding.editPassword.error = getString(R.string.set_error_field)
+            binding.editName.error = getString(R.string.error_message)
             return
         }
 
-        loginViewModel.login(Login(email, password)).observe(this) {
+        registerViewModel.register(Register(name, email, password)).observe(this) {
             when (it) {
                 is Result.Loading -> {
                     binding.clLoading.visibility = View.VISIBLE
                 }
                 is Result.Success -> {
                     binding.clLoading.visibility = View.GONE
-                    loginViewModel.saveToken(it.data.loginResult.token)
-                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                    startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
                     finish()
-                    showToast(getString(R.string.login_successfully))
+                    showToast(getString(R.string.user_created))
                 }
                 is Result.Error -> {
                     binding.clLoading.visibility = View.GONE
-                    showToast(getString(R.string.user_not_found))
+                    showToast(getString(R.string.email_already_exist))
                 }
             }
         }

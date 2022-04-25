@@ -35,4 +35,5 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="login_successfully">Login successfully</string>
+    <string name="change_language">Change Language</string>
 </resources>

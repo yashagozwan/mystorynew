@@ -1,10 +1,8 @@
 package com.yashagozwan.mystorynew.api
 
-import com.yashagozwan.mystorynew.model.Login
-import com.yashagozwan.mystorynew.model.LoginResponse
-import com.yashagozwan.mystorynew.model.Register
-import com.yashagozwan.mystorynew.model.RegisterResponse
+import com.yashagozwan.mystorynew.model.*
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
@@ -13,4 +11,8 @@ interface ApiService {
 
     @POST("/v1/register")
     suspend fun register(@Body register: Register): RegisterResponse
+
+    @GET("/v1/stories")
+    suspend fun stories(): StoryResponse
+
 }

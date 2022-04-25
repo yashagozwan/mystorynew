@@ -38,6 +38,16 @@ class StoryRepository private constructor(
         }
     }
 
+    fun getStories(token: String) = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiConfig.dicoding(token).stories()
+            emit(Result.Success(response.listStory))
+        } catch (error: Exception) {
+            emit(Result.Error(error.message.toString()))
+        }
+    }
+
     companion object {
         @Volatile
         private var instance: StoryRepository? = null

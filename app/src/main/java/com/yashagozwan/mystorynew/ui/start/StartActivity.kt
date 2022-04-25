@@ -3,6 +3,7 @@ package com.yashagozwan.mystorynew.ui.start
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import androidx.activity.viewModels
 import com.yashagozwan.mystorynew.R
@@ -42,12 +43,14 @@ class StartActivity : AppCompatActivity(), View.OnClickListener {
     private fun setButtonListener() {
         binding.btnLogin.setOnClickListener(this)
         binding.btnRegister.setOnClickListener(this)
+        binding.btnChangeLanguage.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
         when (view.id) {
             R.id.btn_login -> startActivity(Intent(this, LoginActivity::class.java))
             R.id.btn_register -> startActivity(Intent(this, RegisterActivity::class.java))
+            R.id.btn_change_language -> startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
         }
     }
 }

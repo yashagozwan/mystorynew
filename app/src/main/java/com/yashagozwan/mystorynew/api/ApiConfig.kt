@@ -12,7 +12,7 @@ object ApiConfig {
         val interceptor = Interceptor {
             var request = it.request()
             request = request.newBuilder()
-                .addHeader("Authorization", token)
+                .addHeader("Authorization", "Bearer $token")
                 .build()
             it.proceed(request)
         }

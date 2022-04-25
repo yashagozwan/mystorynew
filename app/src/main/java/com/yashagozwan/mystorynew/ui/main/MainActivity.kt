@@ -37,13 +37,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun showAlertDialog() {
         val alertDialogBuilder = AlertDialog.Builder(this)
-            .setTitle("Logout")
-            .setMessage("Are you sure ?")
+            .setTitle(R.string.logout)
+            .setMessage(R.string.are_you_sure)
             .setCancelable(false)
-            .setPositiveButton("Yes") { _, _ ->
-                logout()
-            }
-            .setNegativeButton("No") { dialog, _ -> dialog.cancel() }
+            .setPositiveButton(R.string.yes) { _, _ -> logout() }
+            .setNegativeButton(R.string.no) { dialog, _ -> dialog.cancel() }
 
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()

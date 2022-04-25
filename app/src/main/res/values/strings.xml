@@ -15,6 +15,7 @@
     <string name="user_not_found">Incorrect email or password</string>
     <string name="email_already_exist">Email already exist</string>
     <string name="logout">Logout</string>
+    <string name="are_you_sure">Are you sure?</string>
     <string name="user_created">User created</string>
     <string name="image_story">Image story</string>
     <string name="list_story">List Story</string>
@@ -31,4 +32,6 @@
     <string name="story_created">Story created</string>
     <string name="failed_take_picture">Failed to take picture</string>
     <string name="camera_failed">Camera failed</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

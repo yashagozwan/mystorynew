@@ -2,6 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <item
+            android:id="@+id/map_menu"
+            android:title="Maps" />
+        <item
             android:id="@+id/change_language_menu"
             android:title="@string/change_language" />
         <item

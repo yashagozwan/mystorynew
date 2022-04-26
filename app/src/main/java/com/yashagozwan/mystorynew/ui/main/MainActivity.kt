@@ -14,9 +14,10 @@ import com.yashagozwan.mystorynew.R
 import com.yashagozwan.mystorynew.databinding.ActivityMainBinding
 import com.yashagozwan.mystorynew.repository.Result
 import com.yashagozwan.mystorynew.ui.ViewModelFactory
+import com.yashagozwan.mystorynew.ui.addstory.AddStoryActivity
 import com.yashagozwan.mystorynew.ui.start.StartActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityMainBinding
     private val factory = ViewModelFactory.getInstance(this)
     private val mainViewModel: MainViewModel by viewModels { factory }
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setTitleAppBar()
+        setButtonListener()
         renderListStory()
     }
 
@@ -51,6 +53,16 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+    }
+
+    private fun setButtonListener() {
+        binding.btnAddStory.setOnClickListener(this)
+    }
+
+    override fun onClick(view: View) {
+        when (view.id) {
+            R.id.btn_add_story -> startActivity(Intent(this, AddStoryActivity::class.java))
         }
     }
 

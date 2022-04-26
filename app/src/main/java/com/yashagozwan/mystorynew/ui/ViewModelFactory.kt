@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yashagozwan.mystorynew.di.Injection
 import com.yashagozwan.mystorynew.repository.StoryRepository
+import com.yashagozwan.mystorynew.ui.addstory.AddStoryViewModel
 import com.yashagozwan.mystorynew.ui.login.LoginViewModel
 import com.yashagozwan.mystorynew.ui.main.MainViewModel
 import com.yashagozwan.mystorynew.ui.register.RegisterViewModel
@@ -34,6 +35,10 @@ class ViewModelFactory private constructor(private val storyRepository: StoryRep
             ) as T
 
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> RegisterViewModel(
+                storyRepository
+            ) as T
+
+            modelClass.isAssignableFrom(AddStoryViewModel::class.java) -> AddStoryViewModel(
                 storyRepository
             ) as T
 

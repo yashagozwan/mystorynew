@@ -1,6 +1,8 @@
 package com.yashagozwan.mystorynew.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class StoryResponse(
     @field:SerializedName("error")
@@ -15,6 +17,7 @@ data class StoryResponse(
 
 )
 
+@Parcelize
 data class Story(
     @field:SerializedName("id")
     val id: String,
@@ -36,4 +39,4 @@ data class Story(
 
     @field:SerializedName("lon")
     val lon: Double? = null
-)
+) : Parcelable

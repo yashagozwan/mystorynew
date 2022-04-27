@@ -1,5 +1,6 @@
 package com.yashagozwan.mystorynew.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
@@ -8,6 +9,9 @@ import com.yashagozwan.mystorynew.datastore.UserPreference
 import com.yashagozwan.mystorynew.model.Login
 import com.yashagozwan.mystorynew.model.LoginResponse
 import com.yashagozwan.mystorynew.model.Register
+import com.yashagozwan.mystorynew.model.Upload
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class StoryRepository private constructor(
     private val userPreference: UserPreference,
@@ -46,6 +50,23 @@ class StoryRepository private constructor(
         } catch (error: Exception) {
             emit(Result.Error(error.message.toString()))
         }
+    }
+
+    fun upload(
+        token: String,
+        file: MultipartBody.Part,
+        description: RequestBody,
+        lat: Double,
+        lon: Double
+    ) = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiConfig.dicoding(token).upload(file, description, lat, lon)
+            emit(Result.Success(response))
+        } catch (error: Exception) {
+            emit(Result.Error(error.message.toString()))
+        }
+
     }
 
     companion object {

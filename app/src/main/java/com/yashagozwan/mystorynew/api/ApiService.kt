@@ -24,4 +24,6 @@ interface ApiService {
         @Part("lon") lon: Double
     ): UploadResponse
 
+    @GET("v1/stories?location=1")
+    suspend fun storiesAndLocation(): StoryMapResponse
 }

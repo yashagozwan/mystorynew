@@ -15,6 +15,7 @@ import com.yashagozwan.mystorynew.databinding.ActivityMainBinding
 import com.yashagozwan.mystorynew.repository.Result
 import com.yashagozwan.mystorynew.ui.ViewModelFactory
 import com.yashagozwan.mystorynew.ui.addstory.AddStoryActivity
+import com.yashagozwan.mystorynew.ui.map.MapActivity
 import com.yashagozwan.mystorynew.ui.start.StartActivity
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -75,6 +76,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         when (item.itemId) {
             R.id.logout_menu -> showAlertDialog()
             R.id.change_language_menu -> setLanguage()
+            R.id.map_menu -> startActivity(Intent(this, MapActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }

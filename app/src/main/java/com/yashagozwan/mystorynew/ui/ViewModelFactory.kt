@@ -8,6 +8,7 @@ import com.yashagozwan.mystorynew.repository.StoryRepository
 import com.yashagozwan.mystorynew.ui.addstory.AddStoryViewModel
 import com.yashagozwan.mystorynew.ui.login.LoginViewModel
 import com.yashagozwan.mystorynew.ui.main.MainViewModel
+import com.yashagozwan.mystorynew.ui.map.MapViewModel
 import com.yashagozwan.mystorynew.ui.register.RegisterViewModel
 import com.yashagozwan.mystorynew.ui.splash.SplashViewModel
 import com.yashagozwan.mystorynew.ui.start.StartViewModel
@@ -39,6 +40,10 @@ class ViewModelFactory private constructor(private val storyRepository: StoryRep
             ) as T
 
             modelClass.isAssignableFrom(AddStoryViewModel::class.java) -> AddStoryViewModel(
+                storyRepository
+            ) as T
+
+            modelClass.isAssignableFrom(MapViewModel::class.java) -> MapViewModel(
                 storyRepository
             ) as T
 

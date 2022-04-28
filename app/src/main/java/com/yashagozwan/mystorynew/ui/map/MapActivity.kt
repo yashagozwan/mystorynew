@@ -54,15 +54,21 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         mapViewModel.getToken().observe(this) { token ->
             mapViewModel.storiesAndLocation(token).observe(this) {
                 when (it) {
-                    is Result.Loading -> {}
+                    is Result.Loading -> {
+                        showToast("Loading")
+                    }
                     is Result.Success -> {
+                        showToast("Success")
                         for (story in it.data) {
                             val latLon = LatLng(story.lat, story.lon)
                             mMap.addMarker(MarkerOptions().position(latLon).title(story.name))
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLon, 10F))
                         }
                     }
-                    is Result.Error -> {}
+                    is Result.Error -> {
+                        showToast("Error")
+                        finish()
+                    }
                 }
             }
         }

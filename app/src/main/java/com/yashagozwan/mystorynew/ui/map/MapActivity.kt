@@ -1,13 +1,9 @@
 package com.yashagozwan.mystorynew.ui.map
 
-import android.Manifest
-import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -20,7 +16,6 @@ import com.yashagozwan.mystorynew.R
 import com.yashagozwan.mystorynew.databinding.ActivityMapBinding
 import com.yashagozwan.mystorynew.repository.Result
 import com.yashagozwan.mystorynew.ui.ViewModelFactory
-import kotlin.properties.Delegates
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMapBinding

@@ -2,7 +2,6 @@ package com.yashagozwan.mystorynew.ui.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.yashagozwan.mystorynew.R

@@ -1,15 +1,15 @@
 package com.yashagozwan.mystorynew.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.yashagozwan.mystorynew.api.ApiConfig
 import com.yashagozwan.mystorynew.datastore.UserPreference
-import com.yashagozwan.mystorynew.model.Login
-import com.yashagozwan.mystorynew.model.LoginResponse
-import com.yashagozwan.mystorynew.model.Register
-import com.yashagozwan.mystorynew.model.Upload
+import com.yashagozwan.mystorynew.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -42,15 +42,10 @@ class StoryRepository private constructor(
         }
     }
 
-    fun getStories(token: String) = liveData {
-        emit(Result.Loading)
-        try {
-            val response = apiConfig.dicoding(token).stories()
-            emit(Result.Success(response.listStory))
-        } catch (error: Exception) {
-            emit(Result.Error(error.message.toString()))
-        }
-    }
+    fun getStories(token: String): LiveData<PagingData<Story>> = Pager(
+        config = PagingConfig(pageSize = 1),
+        pagingSourceFactory = { StoryPagingSource(apiConfig, token) }
+    ).liveData
 
     fun upload(
         token: String,

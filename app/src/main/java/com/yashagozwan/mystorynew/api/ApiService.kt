@@ -13,7 +13,10 @@ interface ApiService {
     suspend fun register(@Body register: Register): RegisterResponse
 
     @GET("/v1/stories")
-    suspend fun stories(): StoryResponse
+    suspend fun stories(
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): StoryResponse
 
     @POST("/v1/stories")
     @Multipart

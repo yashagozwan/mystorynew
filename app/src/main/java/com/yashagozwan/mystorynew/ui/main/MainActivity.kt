@@ -37,22 +37,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun renderListStory() {
+        val storyAdapter = StoryAdapter()
         val rvStory = binding.rvStory
+        rvStory.adapter = storyAdapter.withLoadStateFooter(
+            footer = LoadingStateAdapter { storyAdapter.retry() }
+        )
         rvStory.layoutManager = LinearLayoutManager(this)
         mainViewModel.getToken().observe(this) { token ->
-            mainViewModel.getStories(token).observe(this) { listStory ->
-                when (listStory) {
-                    is Result.Loading -> {
-                        binding.clLoading.visibility = View.VISIBLE
-                    }
-                    is Result.Success -> {
-                        binding.clLoading.visibility = View.GONE
-                        rvStory.adapter = StoryAdapter(listStory.data)
-                    }
-                    is Result.Error -> {
-                        binding.clLoading.visibility = View.GONE
-                    }
-                }
+            mainViewModel.getStories(token).observe(this) {
+                storyAdapter.submitData(lifecycle, it)
             }
         }
     }

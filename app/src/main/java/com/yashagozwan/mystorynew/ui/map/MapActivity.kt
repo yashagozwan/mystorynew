@@ -50,6 +50,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        mMap.uiSettings.isZoomControlsEnabled = true
 
         mapViewModel.getToken().observe(this) { token ->
             mapViewModel.storiesAndLocation(token).observe(this) {

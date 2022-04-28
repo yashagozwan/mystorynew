@@ -29,4 +29,7 @@ interface ApiService {
 
     @GET("v1/stories?location=1")
     suspend fun storiesAndLocation(): StoryMapResponse
+
+    @GET("/v1/stories")
+    suspend fun storiesLoading(): StoryResponse
 }

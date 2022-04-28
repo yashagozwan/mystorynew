@@ -29,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:icon="@drawable/ic_refresh"
+        android:text="@string/try_again"
         app:iconGravity="start" />
 
 </LinearLayout>

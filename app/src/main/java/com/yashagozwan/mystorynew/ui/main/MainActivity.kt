@@ -44,9 +44,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         )
         rvStory.layoutManager = LinearLayoutManager(this)
         mainViewModel.getToken().observe(this) { token ->
-            mainViewModel.getStories(token).observe(this) {
-                storyAdapter.submitData(lifecycle, it)
+
+            mainViewModel.storiesLoading(token).observe(this) { response ->
+                when (response) {
+                    is Result.Loading -> {
+                        binding.clLoading.visibility = View.VISIBLE
+                    }
+                    is Result.Success -> {
+                        binding.clLoading.visibility = View.GONE
+                        mainViewModel.getStories(token).observe(this) {
+                            storyAdapter.submitData(lifecycle, it)
+                        }
+                    }
+                    is Result.Error -> {
+                        binding.clLoading.visibility = View.GONE
+                    }
+                }
             }
+
+
         }
     }
 

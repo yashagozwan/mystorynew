@@ -1,5 +1,7 @@
 package com.yashagozwan.mystorynew.ui.start
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -25,6 +27,7 @@ class StartActivity : AppCompatActivity(), View.OnClickListener {
         hideAppBar()
         redirect()
         setButtonListener()
+        setAnimation()
     }
 
     private fun redirect() {
@@ -52,5 +55,51 @@ class StartActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btn_register -> startActivity(Intent(this, RegisterActivity::class.java))
             R.id.btn_change_language -> startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
         }
+    }
+
+    private fun setAnimation() {
+        val positionStart = -30F
+        val positionEnd = 30F
+        val myDuration = 1000L
+
+        val illustrationPosition = ObjectAnimator.ofFloat(
+            binding.ivIllustrationGoto,
+            View.TRANSLATION_Y,
+            -500F,
+            0F
+        ).setDuration(myDuration)
+
+        val illustrationLoop = ObjectAnimator.ofFloat(
+            binding.ivIllustrationGoto,
+            View.TRANSLATION_X,
+            positionStart,
+            positionEnd
+        ).apply {
+            duration = myDuration
+            repeatMode = ObjectAnimator.REVERSE
+            repeatCount = ObjectAnimator.INFINITE
+        }
+
+        AnimatorSet().apply {
+            playTogether(illustrationPosition, illustrationLoop)
+        }.start()
+
+        val btnLogin =
+            ObjectAnimator.ofFloat(binding.btnLogin, View.ALPHA, 1F).setDuration(myDuration)
+
+        val btnRegister =
+            ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1F).setDuration(myDuration)
+
+        val btnLanguage =
+            ObjectAnimator.ofFloat(binding.btnChangeLanguage, View.ALPHA, 1F)
+                .setDuration(myDuration)
+
+        AnimatorSet().apply {
+            playSequentially(
+                btnLogin,
+                btnRegister,
+                btnLanguage
+            )
+        }.start()
     }
 }

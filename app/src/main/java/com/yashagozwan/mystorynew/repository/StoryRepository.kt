@@ -41,6 +41,16 @@ class StoryRepository private constructor(
         }
     }
 
+    fun storiesLoading(token: String) = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiConfig.dicoding(token).storiesLoading()
+            emit(Result.Success(response.listStory))
+        } catch (error: Exception) {
+            emit(Result.Error(error.message.toString()))
+        }
+    }
+
     fun getStories(token: String): LiveData<PagingData<Story>> {
         @OptIn(ExperimentalPagingApi::class)
         return Pager(

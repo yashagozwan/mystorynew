@@ -4,5 +4,5 @@ import androidx.lifecycle.ViewModel
 import com.yashagozwan.mystorynew.repository.StoryRepository
 
 class SplashViewModel(private val storyRepository: StoryRepository) : ViewModel() {
-    fun getToken() = storyRepository.getToken()
+   fun getToken() = storyRepository.getToken()
 }

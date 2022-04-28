@@ -13,7 +13,9 @@ import com.yashagozwan.mystorynew.ui.register.RegisterViewModel
 import com.yashagozwan.mystorynew.ui.splash.SplashViewModel
 import com.yashagozwan.mystorynew.ui.start.StartViewModel
 
-class ViewModelFactory private constructor(private val storyRepository: StoryRepository) :
+class ViewModelFactory private constructor(
+    private val storyRepository: StoryRepository
+) :
     ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")

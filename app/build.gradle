@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -29,6 +30,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
     }
     buildFeatures {
         viewBinding true
@@ -66,4 +68,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:19.0.1'
 
     implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+    implementation 'androidx.room:room-ktx:2.5.0-alpha01'
+    implementation 'androidx.room:room-paging:2.5.0-alpha01'
+    kapt 'androidx.room:room-compiler:2.5.0-alpha01'
 }

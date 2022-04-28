@@ -13,7 +13,7 @@ import com.yashagozwan.mystorynew.ui.start.StartActivity
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
-    private val factory = ViewModelFactory.getInstance(this)
+    private lateinit var factory: ViewModelFactory
     private val splashViewModel: SplashViewModel by viewModels { factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +22,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
         hideAppBar()
         redirect()
+        factory = ViewModelFactory.getInstance(this)
     }
 
     private fun hideAppBar() {

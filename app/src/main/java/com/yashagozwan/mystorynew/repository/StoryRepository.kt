@@ -3,11 +3,9 @@ package com.yashagozwan.mystorynew.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.liveData
+import androidx.paging.*
 import com.yashagozwan.mystorynew.api.ApiConfig
+import com.yashagozwan.mystorynew.database.StoryDatabase
 import com.yashagozwan.mystorynew.datastore.UserPreference
 import com.yashagozwan.mystorynew.model.*
 import okhttp3.MultipartBody
@@ -15,7 +13,8 @@ import okhttp3.RequestBody
 
 class StoryRepository private constructor(
     private val userPreference: UserPreference,
-    private val apiConfig: ApiConfig
+    private val apiConfig: ApiConfig,
+    private val storyDatabase: StoryDatabase
 ) {
 
     suspend fun saveToken(token: String) = userPreference.save(token)
@@ -42,10 +41,20 @@ class StoryRepository private constructor(
         }
     }
 
-    fun getStories(token: String): LiveData<PagingData<Story>> = Pager(
-        config = PagingConfig(pageSize = 1),
-        pagingSourceFactory = { StoryPagingSource(apiConfig, token) }
-    ).liveData
+    fun getStories(token: String): LiveData<PagingData<Story>> {
+        @OptIn(ExperimentalPagingApi::class)
+        return Pager(
+            config = PagingConfig(pageSize = 5),
+            remoteMediator = StoryRemoteMediator(
+                storyDatabase,
+                apiConfig,
+                token
+            ),
+            pagingSourceFactory = {
+                storyDatabase.storyDao().getAllStory()
+            }
+        ).liveData
+    }
 
     fun upload(
         token: String,
@@ -77,9 +86,12 @@ class StoryRepository private constructor(
     companion object {
         @Volatile
         private var instance: StoryRepository? = null
-        fun getInstance(userPreference: UserPreference, apiConfig: ApiConfig) =
-            instance ?: synchronized(this) {
-                instance ?: StoryRepository(userPreference, apiConfig)
-            }.also { instance = it }
+        fun getInstance(
+            userPreference: UserPreference,
+            apiConfig: ApiConfig,
+            storyDatabase: StoryDatabase
+        ) = instance ?: synchronized(this) {
+            instance ?: StoryRepository(userPreference, apiConfig, storyDatabase)
+        }.also { instance = it }
     }
 }

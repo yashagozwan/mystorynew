@@ -57,7 +57,10 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                         showToast("Success")
                         for (story in it.data) {
                             val latLon = LatLng(story.lat, story.lon)
-                            mMap.addMarker(MarkerOptions().position(latLon).title(story.name))
+                            mMap.addMarker(
+                                MarkerOptions().position(latLon).title(story.name)
+                                    .snippet(story.description)
+                            )
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLon, 10F))
                         }
                     }
